@@ -9,21 +9,12 @@ import tech.needsbox.mobile.NeedsBoxApplication
 import tech.needsbox.mobile.activities.data.LoginDataSource
 import tech.needsbox.mobile.activities.data.LoginRepository
 import tech.needsbox.mobile.activities.ui.main.ui.main.MainViewModel
-
-const val tokenKey = "needsbox-token"
+import tech.needsbox.mobile.api.NeedsBoxClient
 
 class NeedsBoxProviderFactory(private val application: NeedsBoxApplication) : ViewModelProvider.Factory {
     private val loginRepository = LoginRepository(
-        ::token, LoginDataSource()
+        NeedsBoxClient::token, LoginDataSource()
     )
-
-    var token: String?
-        get() = application.preferences.getString(tokenKey, null)
-        set(value) {
-            application.preferences.edit {
-                this.putString(tokenKey, value)
-            }
-        }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -40,6 +40,7 @@ class LoginRepository(private val tokenProp: KMutableProperty<String?>, val data
         val result = if (isTokenAuth && previousToken != null) {
             dataSource.loginWithToken(storedPreviousToken)
         } else {
+            storedPreviousToken = null
             dataSource.loginWithCredentials(username, password)
         }
 
