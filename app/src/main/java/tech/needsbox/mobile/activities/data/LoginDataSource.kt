@@ -2,7 +2,7 @@ package tech.needsbox.mobile.activities.data
 
 import tech.needsbox.mobile.api.NeedsBoxClient
 import tech.needsbox.mobile.api.model.auth.AuthTokenRequest
-import tech.needsbox.mobile.api.model.users.User
+import tech.needsbox.mobile.api.model.users.NeedsBoxUser
 import java.io.IOException
 
 /**
@@ -10,17 +10,30 @@ import java.io.IOException
  */
 class LoginDataSource {
 
-    suspend fun login(username: String, password: String): Result<User> {
-        try {
+    suspend fun loginWithCredentials(username: String, password: String): Result<NeedsBoxUser> {
+        return try {
             val tokenResponse = NeedsBoxClient.userAuthService.createUserSession(
                 AuthTokenRequest(
                     username,
                     password
                 )
             )
-            NeedsBoxClient.token = tokenResponse?.token ?: return Result.Error(Exception("Invalid credentials"))
+            loginWithToken(tokenResponse?.token)
+        } catch (e: Throwable) {
+            Result.Error(IOException("Error logging in", e))
+        }
+    }
 
-            val currentUser = NeedsBoxClient.userAuthService.getSelfUser() ?: return Result.Error(Exception("Unable to get self user after logging-in!"))
+    suspend fun loginWithToken(token: String?): Result<NeedsBoxUser> {
+        try {
+            NeedsBoxClient.token =
+                token ?: return Result.Error(Exception("Invalid credentials"))
+
+            val currentUser =
+                NeedsBoxClient.userAuthService.getSelfUser()?.also { it.token = token }
+                    ?: return Result.Error(
+                        Exception("Unable to get self user after logging-in!")
+                    )
             return Result.Success(currentUser)
         } catch (e: Throwable) {
             return Result.Error(IOException("Error logging in", e))

@@ -1,6 +1,6 @@
 package tech.needsbox.mobile.activities.ui.login
 
-import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,7 +12,10 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import tech.needsbox.mobile.NeedsBoxApplication
 import tech.needsbox.mobile.R
+import tech.needsbox.mobile.activities.ui.main.MainActivity
+import tech.needsbox.mobile.api.model.users.NeedsBoxUser
 import tech.needsbox.mobile.databinding.ActivityLoginBinding
 
 
@@ -23,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setTitle(R.string.title_activity_login)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -32,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+        loginViewModel = ViewModelProvider(this, (application as NeedsBoxApplication).providerFactory)
             .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
@@ -64,6 +67,10 @@ class LoginActivity : AppCompatActivity() {
 //            Complete and destroy login activity once successful
 //            finish()
         })
+
+        if (loginViewModel.attemptPreviousLogin()) {
+            loading.visibility = View.VISIBLE
+        }
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
@@ -98,13 +105,15 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome).format(model.user.username)
+    private fun updateUiWithUser(model: NeedsBoxUser) {
+        val welcome = getString(R.string.welcome).format(model.name)
+        startActivity(Intent(this, MainActivity::class.java))
         Toast.makeText(
             applicationContext,
             welcome,
             Toast.LENGTH_LONG
         ).show()
+        finish()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {

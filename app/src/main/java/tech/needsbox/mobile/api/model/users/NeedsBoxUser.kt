@@ -1,8 +1,9 @@
 package tech.needsbox.mobile.api.model.users
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class User(
+data class NeedsBoxUser(
     val username: String,
     val name: String,
     val biography: String?,
@@ -12,5 +13,8 @@ data class User(
 
     //Only used for account creation
     val email: String?,
-    val password: String?
+    val password: String?,
+
+    @JsonIgnore
+    var token: String? = null
 )

@@ -5,7 +5,7 @@ import tech.needsbox.mobile.api.model.auth.AuthTokenResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import tech.needsbox.mobile.api.model.users.User
+import tech.needsbox.mobile.api.model.users.NeedsBoxUser
 
 interface UserAuthService {
     @POST("users/sessions")
@@ -15,5 +15,5 @@ interface UserAuthService {
     ): AuthTokenResponse?
 
     @GET("users/self")
-    suspend fun getSelfUser(): User?
+    suspend fun getSelfUser(): NeedsBoxUser?
 }
