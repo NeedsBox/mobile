@@ -3,10 +3,10 @@
     <string name="app_name">NeedsBox</string>
     <string name="action_sign_in">Inciar sessão</string>
     <string name="action_sign_in_short">Inciar sessão</string>
-    <string name="welcome">Bem vindo/a %s!</string>
+    <string name="welcome">Bem-vindo/a %s!</string>
     <string name="invalid_username">Nome de utilizador inválido</string>
-    <string name="invalid_password">Password tem de ter no mínimo 5 caracteres</string>
+    <string name="invalid_password">Password tem de ter no mínimo 8 caracteres</string>
     <string name="login_failed">Início de sessão falhou</string>
     <string name="title_activity_settings">Definições</string>
-    <string name="login_token_failed">Não foi possível restaurar a sua prévia sessão. Por favor inicie sessão novamente.</string>
+    <string name="login_token_failed">Não foi possível restaurar a sua sessão prévia. Por favor inicie sessão novamente.</string>
 </resources>
