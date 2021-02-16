@@ -1,6 +1,5 @@
 package tech.needsbox.mobile.api
 
-import com.fasterxml.jackson.core.type.TypeReference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tech.needsbox.mobile.api.NeedsBoxClient.mapper
@@ -19,25 +18,15 @@ suspend inline fun <reified T> getGenericResults(it: String): PaginatedResult<T>
 
         withContext(Dispatchers.IO) {
 
-            val typeReference = object : TypeReference<PaginatedResult<T>>() {}
-            val typeReferenceList = mapper.typeFactory.constructCollectionType(
-                MutableList::class.java,
-                T::class.java
-            )
-
-            println(typeReference.type)
             val node = mapper.writeValueAsString(it)
-            val nodeResults = mapper.writeValueAsString(it.get("results"))
 
-            val finalResult = mapper.readValue(
+            mapper.readValue(
                 node,
-                typeReference
+                mapper.typeFactory.constructSimpleType(
+                    PaginatedResult::class.java,
+                    arrayOf(mapper.typeFactory.constructSimpleType(T::class.java, emptyArray()))
+                )
             )
-
-            finalResult.apply {
-                val newList = mapper.readValue<List<T>>(nodeResults, typeReferenceList)
-                results = newList
-            }
         }
     }
 
