@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.create
 import tech.needsbox.mobile.NeedsBoxApplication
+import tech.needsbox.mobile.api.services.MiscService
 
 object NeedsBoxClient {
 
@@ -23,11 +24,15 @@ object NeedsBoxClient {
             }
         }
 
+    val mapper = jacksonObjectMapper()
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("http://$needsBoxHost/api/")
         .client(OkHttpClient.Builder().addInterceptor(UserTokenInterceptor).build())
-        .addConverterFactory(JacksonConverterFactory.create(jacksonObjectMapper()))
+        .addConverterFactory(JacksonConverterFactory.create(mapper))
         .build()
 
     val userAuthService: UserAuthService = retrofit.create()
+
+    val miscService: MiscService = retrofit.create()
 }

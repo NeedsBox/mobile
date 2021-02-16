@@ -5,7 +5,7 @@ import retrofit2.http.POST
 
 interface UserService {
 
-    @POST("/users/")
+    @POST("users/")
     suspend fun createUser(newUser: NeedsBoxUser): NeedsBoxUser
 
 }
