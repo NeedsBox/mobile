@@ -1,6 +1,5 @@
 package tech.needsbox.mobile.activities.ui.main.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import kotlinx.coroutines.launch
 import tech.needsbox.mobile.NeedsBoxApplication
 import tech.needsbox.mobile.R
 import tech.needsbox.mobile.api.NeedsBoxClient
-import tech.needsbox.mobile.api.getNextPage
 
 class MainFragment : Fragment() {
 
@@ -32,10 +30,8 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = NeedsBoxApplication.INSTANCE.providerFactory.create(MainViewModel::class.java)
         viewModel.viewModelScope.launch {
-            val categories = NeedsBoxClient.miscService.getCategories()
-            val categories2 = (categories to categories.getNextPage())
-            println(categories2)
-
+            val services = NeedsBoxClient.serviceService.getServices()
+            println(services)
         }
     }
 
