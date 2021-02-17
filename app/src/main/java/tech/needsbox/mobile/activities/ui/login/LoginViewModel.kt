@@ -7,7 +7,7 @@ import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import tech.needsbox.mobile.R
-import tech.needsbox.mobile.activities.data.LoginRepository
+import tech.needsbox.mobile.activities.data.login.LoginRepository
 import tech.needsbox.mobile.activities.data.Result
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {

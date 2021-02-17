@@ -1,5 +1,6 @@
-package tech.needsbox.mobile.activities.data
+package tech.needsbox.mobile.activities.data.login
 
+import tech.needsbox.mobile.activities.data.Result
 import tech.needsbox.mobile.api.NeedsBoxClient
 import tech.needsbox.mobile.api.model.auth.AuthTokenRequest
 import tech.needsbox.mobile.api.model.users.NeedsBoxUser

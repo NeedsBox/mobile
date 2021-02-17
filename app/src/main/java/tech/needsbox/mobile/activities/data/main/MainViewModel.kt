@@ -1,4 +1,4 @@
-package tech.needsbox.mobile.activities.ui.main.ui.main
+package tech.needsbox.mobile.activities.data.main
 
 import androidx.lifecycle.ViewModel
 import tech.needsbox.mobile.api.model.users.NeedsBoxUser

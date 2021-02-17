@@ -9,4 +9,6 @@
     <string name="login_failed">Início de sessão falhou</string>
     <string name="title_activity_settings">Definições</string>
     <string name="login_token_failed">Não foi possível restaurar a sua sessão prévia. Por favor inicie sessão novamente.</string>
+    <string name="services_header">Serviços</string>
+    <string name="ads_header">Anúncios</string>
 </resources>

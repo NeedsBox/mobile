@@ -1,14 +1,11 @@
 package tech.needsbox.mobile.activities.ui.login
 
-import android.content.Context
-import android.content.SharedPreferences
-import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import tech.needsbox.mobile.NeedsBoxApplication
-import tech.needsbox.mobile.activities.data.LoginDataSource
-import tech.needsbox.mobile.activities.data.LoginRepository
-import tech.needsbox.mobile.activities.ui.main.ui.main.MainViewModel
+import tech.needsbox.mobile.activities.data.login.LoginDataSource
+import tech.needsbox.mobile.activities.data.login.LoginRepository
+import tech.needsbox.mobile.activities.data.main.MainViewModel
 import tech.needsbox.mobile.api.NeedsBoxClient
 
 class NeedsBoxProviderFactory(private val application: NeedsBoxApplication) : ViewModelProvider.Factory {
